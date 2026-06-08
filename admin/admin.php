@@ -1,10 +1,10 @@
 <?php
 session_start();
-require 'koneksi.php';
+require '../config/koneksi.php';
 
 // Proteksi akses
 if (!isset($_SESSION['id_user']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
+    header("Location: ../auth/login.php");
     exit();
 }
 
@@ -79,7 +79,7 @@ $data_absen = $stmt->fetchAll();
             <a href="admin.php"><i class="bi bi-journal-text me-2"></i> Data Absensi</a>
         </nav>
         <div class="logout-link">
-            <a href="logout.php"><i class="bi bi-box-arrow-right me-2"></i> Log Out</a>
+            <a href="../auth/logout.php"><i class="bi bi-box-arrow-right me-2"></i> Log Out</a>
         </div>
     </div>
 
@@ -107,7 +107,7 @@ $data_absen = $stmt->fetchAll();
                             <td><?php echo htmlspecialchars($row['npm'] ?? '-'); ?></td>
                             <td><?php echo date('d M Y, H:i', strtotime($row['waktu_absen'])); ?></td>
                             <td>
-                                <img src="uploads/<?php echo $row['foto_path']; ?>" width="60" class="rounded border">
+                                <img src="../uploads/<?php echo $row['foto_path']; ?>" width="60" class="rounded border">
                             </td>
                             <td>
                                 <a href="edit.php?id=<?php echo $row['id_absen']; ?>" class="btn btn-sm btn-outline-success btn-action">Edit</a>

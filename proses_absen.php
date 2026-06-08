@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'koneksi.php';
+require 'config/koneksi.php';
 
 // Jika belum login, arahkan ke halaman login
 if (!isset($_SESSION['id_user'])) {
@@ -113,7 +113,7 @@ if (empty(trim($nama_input))) {
         </a>
     </nav>
     <div class="logout-link px-4">
-        <a href="logout.php" class="nav-link text-white"><i class="bi bi-box-arrow-left"></i> Log Out</a>
+        <a href="auth/logout.php" class="nav-link text-white"><i class="bi bi-box-arrow-left"></i> Log Out</a>
     </div>
 </div>
 

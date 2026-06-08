@@ -1,10 +1,10 @@
 <?php
 session_start();
-require 'koneksi.php';
+require 'config/koneksi.php';
 
 // Proteksi halaman user
 if (!isset($_SESSION['id_user']) || $_SESSION['role'] !== 'user') {
-    header("Location: login.php");
+    header("Location: auth/login.php");
     exit();
 }
 
@@ -70,7 +70,7 @@ $tanggal_hari_ini = date('Y/m/d');
         <a href="records.php" class="nav-link"><i class="bi bi-journal-text"></i> Records</a>
     </nav>
     <div class="logout-link px-4">
-        <a href="logout.php" class="nav-link text-white"><i class="bi bi-box-arrow-left"></i> Log Out</a>
+        <a href="auth/logout.php" class="nav-link text-white"><i class="bi bi-box-arrow-left"></i> Log Out</a>
     </div>
 </div>
 

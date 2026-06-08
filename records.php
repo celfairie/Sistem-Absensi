@@ -1,10 +1,10 @@
 <?php
 session_start();
-require 'koneksi.php';
+require 'config/koneksi.php';
 
 // Proteksi halaman user
 if (!isset($_SESSION['id_user']) || $_SESSION['role'] !== 'user') {
-    header("Location: login.php");
+    header("Location: auth/login.php");
     exit();
 }
 
@@ -58,7 +58,7 @@ $riwayat_absen = $stmt->fetchAll();
         <a href="records.php" class="nav-link active"><i class="bi bi-journal-text"></i> Records</a>
     </nav>
     <div class="logout-link px-4">
-        <a href="logout.php" class="nav-link text-white"><i class="bi bi-box-arrow-left"></i> Log Out</a>
+        <a href="auth/logout.php" class="nav-link text-white"><i class="bi bi-box-arrow-left"></i> Log Out</a>
     </div>
 </div>
 
@@ -81,7 +81,21 @@ $riwayat_absen = $stmt->fetchAll();
                         <td><?php echo date('d M Y', strtotime($row['waktu_absen'])); ?></td>
                         <td><?php echo date('H:i', strtotime($row['waktu_absen'])); ?></td>
                         <td><?php echo htmlspecialchars($row['npm'] ?? '-'); ?></td>
-                        <td><span class="badge bg-success status-badge">Present</span></td>
+                        <td>
+                            <?php
+                            $status = $row['keterangan'] ?? 'Hadir'; 
+                            if ($status == 'Terlambat') {
+                                $warna = 'bg-warning text-dark'; // Kuning untuk terlambat
+                                } elseif ($status == 'Sakit' || $status == 'Izin') {
+                                    $warna = 'bg-info text-white';   // Biru untuk sakit/izin
+                                    } else {
+                                        $warna = 'bg-success';           // Hijau untuk hadir
+                                        }
+                                ?>
+                                <span class="badge <?php echo $warna; ?> status-badge">
+                                    <?php echo $status; ?>
+                                </span>
+                            </td>
                     </tr>
                     <?php endforeach; ?>
                 <?php else: ?>

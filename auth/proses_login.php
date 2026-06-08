@@ -1,6 +1,6 @@
 <?php
 session_start(); 
-require 'koneksi.php';
+require '../config/koneksi.php';
 
 // Menangkap data dari form
 $action = $_POST['action'] ?? 'login'; // Default ke login jika tombol tidak terdeteksi
@@ -54,9 +54,9 @@ if ($action == 'register') {
             $_SESSION['username'] = $user['username']; // <--- BARIS INI YANG DITAMBAHKAN
 
             if ($user['role'] == 'admin') {
-                header("Location: admin.php");
+                header("Location: ../admin/admin.php");
             } else {
-                header("Location: index.php");
+                header("Location: ../index.php");
             }
             exit();
         } else {
